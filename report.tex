@@ -1,10 +1,44 @@
 \documentclass[12pt]{article}
+\usepackage{fancyhdr} % 用于自定义页眉页脚
 
-\title{This Is Our Report}
-\author{Group 16}
+\title{GalPHOS Project Report}
+\author{\textbf{Group 16}: Hengxu Wu, Kairui Li, Yangyi Xiong}
+\date{}
+
+% 设置页面样式
+\pagestyle{fancy}
+\fancyhf{} % 清除所有页眉页脚
+\fancyhead[L]{\leftmark} % 左上方显示section
+\fancyhead[R]{\rightmark} % 右上方显示subsection
+\fancyfoot[C]{\thepage} % 页脚中央显示页码
+
+% 重新定义section和subsection的标记格式
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{#1}}
 
 \begin{document}
 \maketitle
 
-Input the text here.
+\section{Introduction}
+\subsection{Project Overview}
+% 简单介绍项目的内容和情况
+\subsection{Our Work}
+% 介绍小组成员的工作内容和分工
+
+\section{System Architecture}
+\subsection{Architecture Overview}
+% 描述系统的整体架构和设计思路，包括前端和后端的分离
+\subsection{Frontend Design}
+% 介绍前端的设计和实现（类型这一块）
+\subsection{Backend Design}
+% 介绍后端的设计和实现（类型这一块）
+
+\section{Usage and Features}
+\subsection{Administrator}
+\subsection{Student}
+\subsection{Coach}
+\subsection{Grader}
+
+\section{Summary}
+% 对项目的总结和展望
 \end{document}
