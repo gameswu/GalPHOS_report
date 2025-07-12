@@ -1,5 +1,45 @@
 \documentclass[12pt]{article}
 \usepackage{fancyhdr} % 用于自定义页眉页脚
+\usepackage{listings} % 用于代码高亮
+\usepackage{xcolor} % 用于定义颜色
+\usepackage{fontspec} % 用于设置字体 (需要XeLaTeX或LuaLaTeX)
+
+% 定义VS Code风格的颜色
+\definecolor{vscode-bg}{RGB}{30,30,30}
+\definecolor{vscode-string}{RGB}{206,145,120}
+\definecolor{vscode-keyword}{RGB}{86,156,214}
+\definecolor{vscode-comment}{RGB}{106,153,85}
+\definecolor{vscode-number}{RGB}{181,206,168}
+\definecolor{vscode-function}{RGB}{220,220,170}
+
+% 设置代码块字体（Fira Code或Consolas或Monaco）
+\setmonofont{Monaco}[Scale=0.9]
+
+% 配置listings样式
+\lstdefinestyle{vscode}{
+    backgroundcolor=\color{vscode-bg},
+    commentstyle=\color{vscode-comment},
+    keywordstyle=\color{vscode-keyword}\bfseries,
+    numberstyle=\tiny\color{white},
+    stringstyle=\color{vscode-string},
+    basicstyle=\ttfamily\footnotesize\color{white},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{gray!30}
+}
+
+% 设置默认代码样式
+\lstset{style=vscode}
 
 \title{GalPHOS Project Report}
 \author{\textbf{Group 16}: Hengxu Wu, Kairui Li, Yangyi Xiong}
