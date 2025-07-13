@@ -3,6 +3,14 @@
 \usepackage{listings} % 用于代码高亮
 \usepackage{xcolor} % 用于定义颜色
 \usepackage{fontspec} % 用于设置字体 (需要XeLaTeX或LuaLaTeX)
+\usepackage{graphicx} % 用于插入图片
+\usepackage{float} % 用于强制图片位置
+\usepackage{geometry} % 用于设置页面边距
+
+\geometry{a4paper, margin=1in} % 设置A4纸大小和1英寸边距
+
+% 设置图片路径
+\graphicspath{{./fig/}} % 假设图片存放在images文件夹中
 
 % 定义VS Code风格的颜色
 \definecolor{vscode-bg}{RGB}{30,30,30}
@@ -62,8 +70,26 @@
 \section{Introduction}
 \subsection{Project Overview}
 % 简单介绍项目的内容和情况
+
+GalPHOS (Galaxy Physics Online System) is a physical competition event management system based on the web platform, covering a variety of functions including event registration, exam management, and score statistics. The system is designed to provide an efficient and convenient management platform for physics competitions, supporting a variety of user roles, including administrators, students, coaches and graders.
+
+Our system architecture and functions are based on the life cycle design of a competition, including five stages: registration, pre-match preparation, answer submission, post-match marking, result statistics and archives. The figure below illustrates the workflow of the system.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Fig1.png}
+    \caption{GalPHOS System Workflow}
+    \label{fig:workflow}
+\end{figure}
+
 \subsection{Our Work}
 % 介绍小组成员的工作内容和分工
+
+Our group consists of three members: Hengxu Wu, Kairui Li, and Yangyi Xiong. The leader of the group is Hengxu Wu. Each member has contributed to different aspects of the project:
+\begin{itemize}
+    \item Hengxu Wu: Responsible for project design, development documents, and front-end development.
+    \item Kairui Li: % TODO
+    \item Yangyi Xiong: % TODO
+\end{itemize}
 
 \section{System Architecture}
 \subsection{Architecture Overview}
