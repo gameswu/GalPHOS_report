@@ -101,9 +101,89 @@ Our group consists of three members: Hengxu Wu, Kairui Li, and Yangyi Xiong. The
 
 \section{Usage and Features}
 \subsection{Administrator}
+\subsubsection{Admin Management}
+We have a super administrator account initialized along with the system, which has username and password both initialized but can be changed later. All other administrators are added by
+the super administrator later, and super admin can manage them by adding, deleting, banning and password reseting.
+\begin{figure}[htbp] % figure环境，htbp参数指定图片位置
+    \centering % 图片居中显示
+    \includegraphics[width=0.6\textwidth]{./fig/super admin adminmanage.png} % 插入图片，设置宽度为文本宽度的60%
+    \caption{super admin management} % 添加图片标题
+    \label{fig:example} % 添加标签，用于引用
+\end{figure}
+Except the admin management
+function, the other administrators are able to manage the system in the same way as the super administrator.
+\subsubsection{Dashboard}
+The admins' dashboard shows information about the system, including the number of registers, number of active users, number of provinces and schools,
+information about the exams and so on.
+\subsubsection{User Management}
+Administrators can check and manage users in the user management page: administrators can access the detailed information of
+the users, including their username, phone number, region, status and other information,
+for registering users, administrators can approve or reject their registration requests, and for existing users, administrators can ban or unban them,
+and delete them if necessary.
+The user management page also provides a search function, allowing administrators to search for users by username, phone number, region,
+status and other criteria.
+\subsubsection{Region Management}
+In region management page, administrators can access and manage the active regions and schools in the system. In the 'Province management'
+part, administrators can add, delete provinces and add schools to provinces. And in the 'School management' part, administrators can
+access the detailed information of the schools, including their name and belonging region.
+\subsubsection{Region Changing Management}
+In realistic life, some students may change their region or school after registration, so the region changing management page is designed to
+manage the region changing requests from students. After the student submits a region changing request,
+the administrators can check the request and approve or reject it. If approved, the student's region will be updated accordingly.
+This page provides a dashboard showing the number of requests, and a table showing the detailed information of the requests
+and allowing administrators to work on the requests on it.
+\subsubsection{Exam Management}
+The exams are managed by the administrators in the exam management page. Administrators can access the information of the exams, or create, delete and modify exams here.
+The dashboard shows the number of exams, and the table shows the detailed information of the exams, including their name, start time, end time, status and other information and
+provides a filter function to filter the exams by status.
+The exams have total five states: 'Not Published', 'Published', 'In Progress', 'Finished' and 'Graded'.
+To create an exam, administrators need to provide basic exam information: title, detailed information, number of questions, total score,
+time limit, start time and end time, and the files of test paper, answer sheet and solution. We also provide the function to save
+current exam as a draft with the state 'Not Published', so that administrators can modify it later.
+After the exam is published, other users can see the exam in their pages, and the exam will automatically change its state to 'In Progress' when the start time is reached and
+end its state to 'Finished' when the end time is reached. Only when in the 'In Progress' state, students can submit their answer.
+In the 'Finished' state, the answer sheets can be distributed to the graders by the administrator and the graders can grade the answer sheets in the 'Graded' state.
+After all answer sheets are graded, the exam will automatically change its state to 'Graded', and the results will be calculated and stored in the database
+so that users can check their results later.
+\subsubsectin{Grading Management}
+After a exam is finished, the administrators can distribute the answer sheets to the graders in the grading management page.
+In this page, administrators can check the current status of the system, including the number of answer sheets to be graded, the number of graders,
+and the progress of grading. The administrators can assign different questions to different graders, while the grading service
+will automatically assign the questions to the graders based on their availability and workload.
 \subsection{Student}
+\subsubsection{Dashboard}
+The students' dashboard shows the information about the ongoing and finished exams, including the grades of the finished exams and the status of the ongoing exams.
+\subsubsection{Ongoing Exams}
+The ongoing exams page shows the exams that are currently in progress, and students can access the detailed information,
+download files and submit their answers here.
+\subsubsection{Finished Exams}
+This page shows the exams that are finished, and students can check their grades and the solutions of the exams here.
+We also provide the function to download the xlsx file of the results, including the detailed grades, ranking in the region, and the overall ranking.
+\subsubsection{Account Management}
+We allow students to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
 \subsection{Coach}
+\subsubsection{Dashboard}
+In the coaches' dashboard, coaches can check the information about their students, including the number of (active) students, ongoing/finished exams,
+average grades and so on.
+\subsubsection{Student Management}
+We provide the function for coaches to manage their students, including adding, deleting and editing students.
+In our system, students belonging to a coach themselves have no accounts, and all their operations are done by the coach.
+\subsubsection{Ongoing Exams}
+Students belonging to a coach have no accounts, so they cannot access the exams directly, instead, coaches can access the exams
+for them: the coach can download the files, and submit the answers for the students.
+\subsubsection{History Exams}
+This page shows the finished exams of the students just like the students' finished exams page, and coaches can check the grades and solutions of the exams
+for all their students.
+\subsubsection{Account Management}
+We allow coaches to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
 \subsection{Grader}
+\subsubsection{Dashboard}
+In the graders' dashboard, graders can check the information about the exams they are assigned to grade, including the number of answer sheets to be graded or finished,
+grading process information, and so on.
+\subsubsection{Grading Queue}
+In the grading queue page, graders can choose the test they want to grade now and grade their assignments.
+\subsubsection{Account Management}
+We allow graders to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
 
 \section{Summary}
 % 对项目的总结和展望
