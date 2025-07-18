@@ -6,6 +6,7 @@
 \usepackage{graphicx} % 用于插入图片
 \usepackage{float} % 用于强制图片位置
 \usepackage{geometry} % 用于设置页面边距
+\usepackage{subcaption}
 
 \geometry{a4paper, margin=1in} % 设置A4纸大小和1英寸边距
 
@@ -21,7 +22,7 @@
 \definecolor{vscode-function}{RGB}{220,220,170}
 
 % 设置代码块字体（Fira Code或Consolas或Monaco）
-\setmonofont{Monaco}[Scale=0.9]
+\setmonofont{Consolas}[Scale=0.9]
 
 % 配置listings样式
 \lstdefinestyle{vscode}{
@@ -104,24 +105,24 @@ Our group consists of three members: Hengxu Wu, Kairui Li, and Yangyi Xiong. The
 \subsubsection{Admin Management}
 We have a super administrator account initialized along with the system, which has username and password both initialized but can be changed later. All other administrators are added by
 the super administrator later, and super admin can manage them by adding, deleting, banning and password reseting.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/adminmanage.png}
-    \caption{Admin management page}
-    \label{fig:adminmanage page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\textwidth]{admin/adminmanage.png}
+%     \caption{Admin management page}
+%     \label{fig:adminmanage page}
+% \end{figure}
 
 Except the admin management
 function, the other administrators are able to manage the system in the same way as the super administrator.
 \subsubsection{Dashboard}
 The admins' dashboard shows information about the system, including the number of registers, number of active users, number of provinces and schools,
 information about the exams and so on.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/dashboard4admin.png}
-    \caption{Admin management page}
-    \label{fig:adminmanage page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\textwidth]{admin/dashboard4admin.png}
+%     \caption{Admin management page}
+%     \label{fig:adminmanage page}
+% \end{figure}
 \subsubsection{User Management}
 Administrators can check and manage users in the user management page: administrators can access the detailed information of
 the users, including their username, phone number, region, status and other information,
@@ -129,28 +130,28 @@ for registering users, administrators can approve or reject their registration r
 and delete them if necessary.
 The user management page also provides a search function, allowing administrators to search for users by username, phone number, region,
 status and other criteria.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/usermanage-1.png}
-    \caption{UserManagement page: registering users}
-    \label{fig:UserManagement page}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/usermanage-2.png}
-    \caption{UserManagement page: registered users}
-    \label{fig:UserManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{admin/usermanage-1.png}
+%     \caption{UserManagement page: registering users}
+%     \label{fig:UserManagement page}
+% \end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{admin/usermanage-2.png}
+%     \caption{UserManagement page: registered users}
+%     \label{fig:UserManagement page}
+% \end{figure}
 \subsubsection{Region Management}
 In region management page, administrators can access and manage the active regions and schools in the system. In the 'Province management'
 part, administrators can add, delete provinces and add schools to provinces. And in the 'School management' part, administrators can
 access the detailed information of the schools, including their name and belonging region.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/region-overview.png}
-    \caption{Region management page}
-    \label{fig:RegionManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\textwidth]{admin/region-overview.png}
+%     \caption{Region management page}
+%     \label{fig:RegionManagement page}
+% \end{figure}
 \subsubsection{Region Changing Management}
 In realistic life, some students may change their region or school after registration, so the region changing management page is designed to
 manage the region changing requests from students. After the student submits a region changing request,
@@ -158,50 +159,86 @@ the administrators can check the request and approve or reject it. If approved, 
 This page provides a dashboard showing the number of requests, and a table showing the detailed information of the requests
 and allowing administrators to work on the requests on it.
 % insert the figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/changeregion.png}
-    \caption{Region changing management page}
-    \label{fig:RegionChangingManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{admin/changeregion.png}
+%     \caption{Region changing management page}
+%     \label{fig:RegionChangingManagement page}
+% \end{figure}
 \subsubsection{Exam Management}
 The exams are managed by the administrators in the exam management page. Administrators can access the information of the exams, or create, delete and modify exams here.
 The dashboard shows the number of exams, and the table shows the detailed information of the exams, including their name, start time, end time, status and other information and
 provides a filter function to filter the exams by status.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/exammanage.png}
-    \caption{Exam management page overview}
-    \label{fig:ExamManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{admin/exammanage.png}
+%     \caption{Exam management page overview}
+%     \label{fig:ExamManagement page}
+% \end{figure}
 The exams have total five states: 'Not Published', 'Published', 'In Progress', 'Finished' and 'Graded'.
 To create an exam, administrators need to provide basic exam information: title, detailed information, number of questions, total score,
 time limit, start time and end time, and the files of test paper, answer sheet and solution.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/createexam1.png}
-    \caption{Exam creation page and file upload}
-    \label{fig:ExamCreation page}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/createexam2.png}
-    \caption{Exam creation page: grade setting}
-    \label{fig:ExamCreation page2}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/createexam3.png}
-    \caption{Exam creation page: final confirmation}
-    \label{fig:ExamCreation page3}
-\end{figure}
-After setting up the exam, administrators can preview the exam and check the information before creating it.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/checkexam.png}
-    \caption{Exam creation page: exam created}
-    \label{fig:ExamCreation page4}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{admin/createexam1.png}
+%     \caption{Exam creation page and file upload}
+%     \label{fig:ExamCreation page}
+% \end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{admin/createexam2.png}
+%     \caption{Exam creation page: grade setting}
+%     \label{fig:ExamCreation page2}
+% \end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{admin/createexam3.png}
+%     \caption{Exam creation page: final confirmation}
+%     \label{fig:ExamCreation page3}
+% \end{figure}
+% After setting up the exam, administrators can preview the exam and check the information before creating it.
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{admin/checkexam.png}
+%     \caption{Exam creation page: exam created}
+%     \label{fig:ExamCreation page4}
+% \end{figure}
+
+
+% \begin{figure}[htbp]
+%   \centering
+%   \setlength{\tabcolsep}{0pt}  % 去除表格列间距
+%   \renewcommand{\arraystretch}{0}  % 去除表格行间距
+  
+%   \begin{tabular}{cc}
+%     % 左上
+%     \begin{subfigure}[t]{0.45\textwidth}
+%       \includegraphics[width=\textwidth,height=4cm,keepaspectratio]{admin/createexam1.png}
+%       \caption*{图1}
+%     \end{subfigure} &
+%     % 右上
+%     \begin{subfigure}[t]{0.45\textwidth}
+%       \includegraphics[width=\textwidth,height=4cm,keepaspectratio]{admin/createexam2.png}
+%       \caption*{图2}
+%     \end{subfigure} \\
+%     % 左下
+%     \begin{subfigure}[t]{0.45\textwidth}
+%       \includegraphics[width=\textwidth,height=4cm,keepaspectratio]{admin/createexam3.png}
+%       \caption*{图3}
+%     \end{subfigure} &
+%     % 右下
+%     \begin{subfigure}[t]{0.45\textwidth}
+%       \includegraphics[width=\textwidth,height=4cm,keepaspectratio]{admin/checkexam.png}
+%       \caption*{图4}
+%     \end{subfigure}
+%   \end{tabular}
+  
+%   \caption{四张图片的紧凑组合}
+%   \label{fig:compact-four}
+% \end{figure}
+
+
+
 We also provide the function to save
 current exam as a draft with the state 'Not Published', so that administrators can modify it later.
 After the exam is published, other users can see the exam in their pages, and the exam will automatically change its state to 'In Progress' when the start time is reached and
@@ -214,121 +251,109 @@ After a exam is finished, the administrators can distribute the answer sheets to
 In this page, administrators can check the current status of the system, including the number of answer sheets to be graded, the number of graders,
 and the progress of grading. The administrators can assign different questions to different graders, while the grading service
 will automatically assign the questions to the graders based on their availability and workload.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{admin/gradermanage.png}
-    \caption{Grading management page}
-    \label{fig:GradingManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{admin/gradermanage.png}
+%     \caption{Grading management page}
+%     \label{fig:GradingManagement page}
+% \end{figure}
 \subsection{Student}
 \subsubsection{Dashboard}
 The students' dashboard shows the information about the ongoing and finished exams, including the grades of the finished exams and the status of the ongoing exams.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{student/dashboard.png}
-    \caption{Student dashboard}
-    \label{fig:StudentDashboard page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{student/dashboard.png}
+%     \caption{Student dashboard}
+%     \label{fig:StudentDashboard page}
+% \end{figure}
 \subsubsection{Ongoing Exams}
 The ongoing exams page shows the exams that are currently in progress, and students can access the detailed information,
 download files and submit their answers here.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{student/test-ing.png}
-    \caption{Ongoing exams page}
-    \label{fig:OngoingExams page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{student/test-ing.png}
+%     \caption{Ongoing exams page}
+%     \label{fig:OngoingExams page}
+% \end{figure}
 \subsubsection{Finished Exams}
 This page shows the exams that are finished, and students can check their grades and the solutions of the exams here.
 We also provide the function to download the xlsx file of the results, including the detailed grades, ranking in the region, and the overall ranking.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{student/test-his.png}
-    \caption{Finished exams page}
-    \label{fig:FinishedExams page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{student/test-his.png}
+%     \caption{Finished exams page}
+%     \label{fig:FinishedExams page}
+% \end{figure}
 \subsubsection{Account Management}
 We allow students to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{student/account.png}
-    \caption{Account management page}
-    \label{fig:AccountManagement page}
-\end{figure}
 \subsection{Coach}
 \subsubsection{Dashboard}
 In the coaches' dashboard, coaches can check the information about their students, including the number of (active) students, ongoing/finished exams,
 average grades and so on.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/dashboard.png}
-    \caption{Coach dashboard}
-    \label{fig:CoachDashboard page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{coach/dashboard.png}
+%     \caption{Coach dashboard}
+%     \label{fig:CoachDashboard page}
+% \end{figure}
 \subsubsection{Student Management}
 We provide the function for coaches to manage their students, including adding, deleting and editing students.
 In our system, students belonging to a coach themselves have no accounts, and all their operations are done by the coach.
 % insert the figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/stu-manage.png}
-    \caption{Student management page}
-    \label{fig:StudentManagement page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{coach/stu-manage.png}
+%     \caption{Student management page}
+%     \label{fig:StudentManagement page}
+% \end{figure}
 \subsubsection{Ongoing Exams}
 Students belonging to a coach have no accounts, so they cannot access the exams directly, instead, coaches can access the exams
 for them: the coach can download the files, and submit the answers for the students.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/test-ing.png}
-    \caption{Ongoing exams page for coaches}
-    \label{fig:OngoingExamsForCoach page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{coach/test-ing.png}
+%     \caption{Ongoing exams page for coaches}
+%     \label{fig:OngoingExamsForCoach page}
+% \end{figure}
 % insert the uploadexam figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/uploadexam.png}
-    \caption{Upload exam page for coaches}
-    \label{fig:UploadExamForCoach page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.4\textwidth]{coach/uploadexam.png}
+%     \caption{Upload exam page for coaches}
+%     \label{fig:UploadExamForCoach page}
+% \end{figure}
 \subsubsection{History Exams}
 This page shows the finished exams of the students just like the students' finished exams page, and coaches can check the grades and solutions of the exams
 for all their students.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/test-ed.png}
-    \caption{Finished exams page for coaches}
-    \label{fig:FinishedExamsForCoach page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{coach/test-ed.png}
+%     \caption{Finished exams page for coaches}
+%     \label{fig:FinishedExamsForCoach page}
+% \end{figure}
 \subsubsection{Account Management}
 We allow coaches to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
 % insert the figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{coach/account.png}
-    \caption{Account management page for coaches}
-    \label{fig:AccountManagementForCoach page}
-\end{figure}
 \subsection{Grader}
 \subsubsection{Dashboard}
 In the graders' dashboard, graders can check the information about the exams they are assigned to grade, including the number of answer sheets to be graded or finished,
 grading process information, and so on.
 % insert the figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{grader/dashboard.png}
-    \caption{Grader dashboard}
-    \label{fig:GraderDashboard page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{grader/dashboard.png}
+%     \caption{Grader dashboard}
+%     \label{fig:GraderDashboard page}
+% \end{figure}
 \subsubsection{Grading Queue}
 In the grading queue page, graders can choose the test they want to grade now and grade their assignments.
 % insert the figure here
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{grader/queue.png}
-    \caption{Grading queue page}
-    \label{fig:GradingQueue page}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{grader/queue.png}
+%     \caption{Grading queue page}
+%     \label{fig:GradingQueue page}
+% \end{figure}
 \subsubsection{Account Management}
 We allow graders to manage their accounts, including changing their passwords, updating their avatar, and updating their username.
 
