@@ -21,7 +21,7 @@
 \definecolor{vscode-function}{RGB}{220,220,170}
 
 % 设置代码块字体（Fira Code或Consolas或Monaco）
-\setmonofont{Consolas}[Scale=0.9]
+\setmonofont{Monaco}[Scale=0.9]
 
 % 配置listings样式
 \lstdefinestyle{vscode}{
@@ -74,12 +74,12 @@
 GalPHOS (Galaxy Physics Online System) is a physical competition event management system based on the web platform, covering a variety of functions including event registration, exam management, and score statistics. The system is designed to provide an efficient and convenient management platform for physics competitions, supporting a variety of user roles, including administrators, students, coaches and graders.
 
 Our system architecture and functions are based on the life cycle design of a competition, including five stages: registration, pre-match preparation, answer submission, post-match marking, result statistics and archives. The figure below illustrates the workflow of the system.
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{Fig1.png}
-%     \caption{GalPHOS System Workflow}
-%     \label{fig:workflow}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Fig1.png}
+    \caption{GalPHOS System Workflow}
+    \label{fig:workflow}
+\end{figure}
 
 \subsection{Our Work}
 % 介绍小组成员的工作内容和分工
@@ -88,7 +88,7 @@ Our group consists of three members: Hengxu Wu, Kairui Li, and Yangyi Xiong. The
 \begin{itemize}
     \item Hengxu Wu: Responsible for project design, development documents, and front-end development.
     \item Kairui Li: % TODO
-    \item Yangyi Xiong: % TODO
+    \item Yangyi Xiong: Responsible for part of the back-end development: GradingService, ScoreStatisticsService, SystemConfigService, UserAuthService, UserManagementService.
 \end{itemize}
 
 \section{System Architecture}
