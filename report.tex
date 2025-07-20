@@ -8,7 +8,7 @@
 \usepackage{geometry} % 用于设置页面边距
 \usepackage{subcaption}
 
-\geometry{a4paper, margin=1in} % 设置A4纸大小和1英寸边距
+\geometry{a4paper, margin=0.9in} % 设置A4纸大小和0.9英寸边距
 
 % 设置图片路径
 \graphicspath{{./fig/}} % 假设图片存放在images文件夹中
@@ -66,6 +66,23 @@
 \renewcommand{\subsectionmark}[1]{\markright{#1}}
 
 \begin{document}
+
+\makeatletter % change default title style
+\renewcommand*\maketitle{%
+    \begin{center}% 
+        {\LARGE \@title \par} %
+        \vskip 1em%
+        {\large
+        \lineskip .75em%
+        \begin{tabular}[t]{c}%
+            \@author
+        \end{tabular}\par}%
+        \thispagestyle{empty} %
+    \end{center}%
+    \setcounter{footnote}{0}%
+}
+\makeatother
+
 \maketitle
 
 \section{Introduction}
@@ -88,17 +105,138 @@ Our system architecture and functions are based on the life cycle design of a co
 Our group consists of three members: Hengxu Wu, Kairui Li, and Yangyi Xiong. The leader of the group is Hengxu Wu. Each member has contributed to different aspects of the project:
 \begin{itemize}
     \item Hengxu Wu: Responsible for project design, development documents, and front-end development.
-    \item Kairui Li: % TODO
-    \item Yangyi Xiong: Responsible for part of the back-end development: GradingService, ScoreStatisticsService, SystemConfigService, UserAuthService, UserManagementService.
+    \item Kairui Li: Responsible for project design, development documents, and part of the back-end development, including Exam Management Service, File Storage Service, Region Management Service and Submission Service.
+    \item Yangyi Xiong: Responsible project design, development documents, and part of the back-end development, including GradingService, ScoreStatisticsService, SystemConfigService, UserAuthService and UserManagementService.
 \end{itemize}
 
 \section{System Architecture}
-\subsection{Architecture Overview}
+% \subsection{Architecture Overview}
 % 描述系统的整体架构和设计思路，包括前端和后端的分离
 \subsection{Frontend Design}
 % 介绍前端的设计和实现（类型这一块）
 \subsection{Backend Design}
-% 介绍后端的设计和实现（类型这一块）
+
+\subsubsection{System Overview}
+
+The GalPHOS backend is a microservices-based platform engineered to deliver reliable, scalable, and maintainable operations for physics olympiad competitions. 
+
+The architecture consists of 9 specialized microservices: Exam Management Service, File Storage Service, Region Management Service, Submission Service, Grading Service, Score Statistics Service, System Config Service, User Authentication Service and User Management Service. All of them are designed with type-safe domain modeling using Scala's advanced type system. Every component follows functional programming principles, leveraging algebraic data types (ADTs), effect types, and compile-time guarantees to ensure system reliability and maintainability. And all side effects are captured in the type system using Cats Effect's `IO' monad, making impure operations explicit and composable.
+
+As for APIs, the API architecture adheres to modern RESTful design principles. All API endpoints are defined using HTTP4s with strong typing that ensures request/response contracts are validated at compile time. 
+
+For data structures, the backend employs a sdata architecture with microservice-specific database isolation. Each service maintains its own PostgreSQL database, ensuring data autonomy and service independence.
+
+The type-safe architecture ensures that the GalPHOS system maintains data integrity, prevents runtime errors, and provides clear contracts between all system components, from frontend interactions to database operations.
+
+\subsubsection{Microservices Architecture Overview}
+
+Consistent with what was mentioned earlier, the system consists of 9 specialized microservices, each handling distinct business domains. And the figure below illustrates the overall architecture of the GalPHOS system, showcasing the microservices and their interactions.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Fig2.png}
+    \caption{Microservices Architecture}
+    \label{fig:ArchitectureOverview}
+\end{figure}
+
+\subsubsection{Core Components}
+
+Now, let me introduce each of the 9 microservices one by one.
+
+\paragraph{User Authentication Service} (on Port 3001) is responsible for handling all authentication, authorization, and session management operations. It provides APIs for user login and registration with role-based authentication, JWT token generation and validation, password security using SHA-256 with salt values, and cross-service authentication validation for inter-service communication. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class LoginRequest( role: String, username: String, password: String )
+
+enum UserStatus(val value: String):
+  case Pending extends UserStatus("PENDING")
+  case Active extends UserStatus("ACTIVE")
+  case Disabled extends UserStatus("DISABLED")
+\end{lstlisting}
+
+\paragraph{User Management Service} (on Port 3002) is responsible for comprehensive user lifecycle management, user information maintenance, coach-student relationship management, and region administration operations. It provides APIs for user approval and review processes with pending user management and batch approval operations, user status lifecycle management, coach-student relationship establishment and maintenance with statistics tracking, region change request processing for students and coaches with administrative approval workflows, and administrative user management. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class CoachStudentRelationship( id: String, coachId: String, coachUsername: String, coachName: Option[String], studentId: String, studentUsername: String, studentName: Option[String], createdAt: LocalDateTime )
+
+case class RegionChangeRequest( province: String, school: String, reason: String )
+\end{lstlisting}
+
+\paragraph{Exam Management Service} (on Port 3003) is responsible for complete exam lifecycle management including creation, modification, publication, status tracking, and coordination with other services throughout the examination process. It provides APIs for exam CRUD operations with role-based access control, question score configuration and management, file upload integration supporting multiple file types (question papers, answer keys, answer sheets), exam status management with automated transitions, submission coordination with external services, and comprehensive exam statistics and monitoring capabilities. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class Exam( id: String, title: String, description: String, startTime: LocalDateTime, endTime: LocalDateTime, status: ExamStatus, createdAt: LocalDateTime, updatedAt: LocalDateTime, duration: Option[Int] = None, questionFile: Option[ExamFile] = None, answerFile: Option[ExamFile] = None, answerSheetFile: Option[ExamFile] = None, createdBy: String, participants: List[String] = List.empty, totalQuestions: Option[Int] = None, maxScore: Option[Double] = None, totalScore: Option[Double] = None, subject: Option[String] = None, instructions: Option[String] = None )
+
+case class CreateExamRequest( title: String, description: String, startTime: LocalDateTime, endTime: LocalDateTime, totalQuestions: Int, duration: Int, status: ExamStatus = ExamStatus.Draft, totalScore: Option[Double] = None, questions: Option[List[CreateExamQuestionRequest]] = None )
+\end{lstlisting}
+
+\paragraph{Submission Service} (on Port 3004) is responsible for managing exam answer submissions, supporting both independent student direct submissions and coach proxy submissions for non-independent students. It provides APIs for student answer submission, file upload management and submission status tracking. The corresponding database has two main tables: `submissions' table for storing exam submission records with metadata, and `answers' table for storing individual question answers with image URLs, scores, and grading details. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+enum SubmissionStatus(val value: String) {
+  case Submitted extends SubmissionStatus("submitted")
+  case Grading extends SubmissionStatus("grading")
+  case Graded extends SubmissionStatus("graded")
+}
+
+case class ExamSubmission( id: String, examId: String, studentId: String, studentUsername: String, studentName: Option[String] = None, answers: List[ExamAnswer], submittedAt: LocalDateTime, status: SubmissionStatus, totalScore: Option[Double] = None, maxScore: Option[Double] = None, gradedAt: Option[LocalDateTime] = None, gradedBy: Option[String] = None, feedback: Option[String] = None, submittedBy: Option[String] = None )
+\end{lstlisting}
+
+\paragraph{Grading Service} (on Port 3005) is responsible for managing the entire grading workflow for online examinations, including task assignment, score management, and grading progress tracking. It provides APIs for administrators to create and assign grading tasks, monitor grading progress, configure question scores, and for graders to perform actual grading work. The corresponding database has tables to manage individual grading assignments, store question-specific scoring configurations, maintaine grading audit trails, and store submission images. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class TaskAssignmentRequest( examId: String, graderId: String, questionIds: List[String] )
+
+case class GradingProgress( examId: String, totalTasks: Int, completedTasks: Int, inProgressTasks: Int, pendingTasks: Int, completionPercentage: BigDecimal )
+\end{lstlisting}
+
+\paragraph{Score Statistics Service} (on Port 3006) is responsible for handling student score calculations, statistical analysis and ranking generation. It provides APIs for student score viewing and ranking retrieval, coach grade management and student performance monitoring and grader statistics tracking. The corresponding database has tables to store individual student exam results with ranking and percentile information, individual student performance tracking over time, coach-level performance metrics and so on. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class ExamScore( id: Option[Int] = None, examId: Int, studentId: Int, totalScore: Double, questionScores: Map[String, Double] = Map.empty, rankPosition: Int = 0, percentile: Double = 0.0, createdAt: Option[LocalDateTime] = None, updatedAt: Option[LocalDateTime] = None )
+
+case class StudentStatistics( id: Option[Int] = None, studentId: Int, totalExams: Int, averageScore: Double, bestScore: Double, worstScore: Double, improvementTrend: Double, strongSubjects: List[String] = List.empty, weakSubjects: List[String] = List.empty, createdAt: Option[LocalDateTime] = None, updatedAt: Option[LocalDateTime] = None )
+\end{lstlisting}
+
+\paragraph{Region Management Service} (on Port 3007) is responsible for managing geographical regions and handling region change requests from students and coaches. It provides APIs for CRUD operations on provinces and schools. The service implements role-based access control with different endpoints for administrators, students, and coaches, and includes authentication integration with the User Authentication Service. The corresponding database has three main tables, respectively for storing province information with UUID primary keys, linking provinces with foreign key relationships, and tracking user requests for region changes. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class Province( id: UUID, name: String, createdAt: OffsetDateTime, updatedAt: OffsetDateTime )
+
+case class School( id: UUID, name: String, provinceId: UUID, province: Option[Province] = None, createdAt: OffsetDateTime, updatedAt: OffsetDateTime )
+\end{lstlisting}
+
+\paragraph{File Storage Service} (on Port 3008) is responsible for handling all file upload, download, and management operations. It provides APIs for uploading multiple file types including exam files, answer images, documents, and avatars, with role-based access control for different user types (admins, students, coaches, and graders). The corresponding database includes metadata of each files and optimized indexes for efficient querying by exam ID, student ID, category, and upload time. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+enum FileCategory(val value: String):
+  case Avatar extends FileCategory("avatar")
+  case AnswerImage extends FileCategory("answer-image")
+  case ExamFile extends FileCategory("exam-file")
+  case Document extends FileCategory("document")
+  case Other extends FileCategory("other")
+
+case class FileRecord( id: String, fileName: String, originalName: String, fileUrl: String, fileSize: Long, mimeType: String, fileType: Option[String] = None, category: Option[String] = None, examId: Option[String] = None, questionNumber: Option[Int] = None, studentId: Option[String] = None, uploadedBy: String, uploadTime: LocalDateTime )
+\end{lstlisting}
+
+\paragraph{System Configuration Service} (on Port 3009) is responsible for managing system-wide configurations, administrator accounts, and providing unified data access across all services in the GalPHOS system. It provides APIs for system settings management, administrator account operations, unified user data access through proxy services, version information management, and global system configuration. The corresponding database stores system configurations and administrator data managed through UserAuthService integration. Some examples of type-safe components:
+
+\begin{lstlisting}[language=Scala]
+case class SystemConfig( id: Option[Long], configKey: String, configValue: String, description: Option[String], isPublic: Boolean, createdAt: Option[ZonedDateTime], updatedAt: Option[ZonedDateTime] )
+
+case class Admin( id: Option[String], username: String, passwordHash: Option[String], role: String, isSuperAdmin: Boolean, status: Option[String], createdAt: Option[ZonedDateTime], updatedAt: Option[ZonedDateTime], lastLogin: Option[ZonedDateTime] )
+\end{lstlisting}
+
+% \subsubsection{Example: The Complete Exam Workflow}
+% 
+% This example demonstrates the entire exam lifecycle from creation to grading completion, showcasing type-safe inter-service communication and state management.
+% 
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{Fig3.png}
+%     \caption{Example: The Complete Exam Workflow}
+%     \label{fig:Example}
+% \end{figure}
 
 \section{Usage and Features}
 \subsection{Administrator}
